@@ -10,10 +10,20 @@ export class SideBarComponent {
 
   constructor(
     private serviceGifs: GifsService
-  ){}
+  ){
+    let historyTags: string [] = [];
+    if(!localStorage.getItem('history')) return;
+
+    historyTags = JSON.parse(localStorage.getItem('history')!);
+    this.serviceGifs.searchTag(historyTags[0]);
+  }
 
   get items() {
     return this.serviceGifs.tagsHistory;
+  }
+
+  searchValue(tag: string){
+    this.serviceGifs.searchTag(tag);
   }
 
 }
